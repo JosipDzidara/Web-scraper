@@ -1,0 +1,5 @@
+db.sqlite3
+WebScraper/__pycache__/__init__.cpython-39.pyc
+WebScraper/__pycache__/settings.cpython-39.pyc
+WebScraper/__pycache__/urls.cpython-39.pyc
+WebScraper/__pycache__/wsgi.cpython-39.pyc
