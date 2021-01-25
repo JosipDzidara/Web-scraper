@@ -19,3 +19,4 @@ GUI/__pycache__/urls.cpython-39.pyc
 GUI/__pycache__/views.cpython-39.pyc
 GUI/migrations/__pycache__/__init__.cpython-39.pyc
 Engine/__pycache__/Scraper.cpython-38.pyc
+Engine/__pycache__
