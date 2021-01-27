@@ -15,6 +15,11 @@ def get_data(n):
         areas =  soup.find_all("div",attrs={"class":"entity-description-main"})
         for i in range(len(prices)):
             price = prices[i].get_text().replace("kn",'').replace('.','').strip()
+            try:
+                loc = str(areas[i])
+                loc = loc.split("</span>")[1].split(",")[0]
+            except IndexError:
+                break
             area = areas[i].find(string=re.compile("Stambena"))
             if not area:
                 break
@@ -22,4 +27,5 @@ def get_data(n):
             database.add_one(int(price),int(float(area)))
 
 
-get_data(2)
+
+
