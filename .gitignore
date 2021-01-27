@@ -20,3 +20,4 @@ GUI/__pycache__/views.cpython-39.pyc
 GUI/migrations/__pycache__/__init__.cpython-39.pyc
 Engine/__pycache__/Scraper.cpython-38.pyc
 Engine/__pycache__
+.DS_Store
