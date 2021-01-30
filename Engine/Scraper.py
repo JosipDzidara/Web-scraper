@@ -17,6 +17,7 @@ class Scraper:
         self.counter: int = 0
         self.data = {'Lokacija': '0', 'Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
         self.dataset: dict = {}
+        self.index: str = ""
 
 
 
@@ -25,19 +26,19 @@ class Scraper:
             print("You are currently on page {} out of {}".format(page, n))
             page_request = requests.get(self.link.format(page), headers = {"User-Agent":UserAgent().random})
             soup = bs(page_request.content,'html.parser')
-            print(soup)
             self.get_links(soup)
             self.get_data()
             sleep(random.randint(2,6))
         self.save_data_to_json()
 
     def get_links(self, soup):
-        parent = soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > div.EntityList.EntityList--Standard.EntityList--Regular.EntityList--ListItemRegularAd.EntityList--itemCount_44000 > ul > li > article > h3 > a")
+        if not self.index:
+            self.index = str(soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > header > div.entity-list-meta > strong")).split(">")[1].split("<")[0]
+        parent = soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > div.EntityList.EntityList--Standard.EntityList--Regular.EntityList--ListItemRegularAd.EntityList--itemCount_{} > ul > li > article > h3 > a".format(parent_var))
         for link in parent:
             self.list_of_links.append(self.address + link.get('href'))
     
     def get_data(self):
-        print(self.list_of_links)
         for link in self.list_of_links:
             self.counter += 1
             page_request = requests.get(link, headers = {"User-Agent":UserAgent().random})
@@ -54,7 +55,8 @@ class Scraper:
     
     def save_data_to_json(self):
         with open('data.json', 'w+') as json_file:
-            json.dump(self.dataset, json_file, ensure_ascii=False)
+            json.dump(self.dataset, json_file)
 
 scraper = Scraper(2)
 scraper.send_requests(2)
+
