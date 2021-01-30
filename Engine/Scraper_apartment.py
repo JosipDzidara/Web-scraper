@@ -12,7 +12,6 @@ class Scraper:
     def __init__(self) -> None:
         self.link: str = "https://www.njuskalo.hr/prodaja-stanova?page={}"
         self.address: str = "https://www.njuskalo.hr"
-        self.number_of_pages: range = range(1, n)
         self.list_of_links: list = []
         self.counter: int = 0
         self.data = {'Lokacija': '0', 'Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
