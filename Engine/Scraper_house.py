@@ -13,7 +13,7 @@ class Scraper:
         self.link: str = "https://www.njuskalo.hr/prodaja-kuca?page={}"
         self.address: str = "https://www.njuskalo.hr"
         self.list_of_links: list = []
-        self.counter: int = 0
+        self.counter: int = 798
         self.data = {'Lokacija': '0','Cijena':'0','Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
         self.dataset: dict = {}
         self.index: str = ""
@@ -27,7 +27,7 @@ class Scraper:
         for page in range(a, n):
             print("You are currently on page {}".format(page))
             page_request = requests.get(self.link.format(page), headers = {"User-Agent":UserAgent().random})
-            soup = bs(page_request.content,'html.parser')
+            soup = bs(page_request.content,'html5lib')
             self.get_links(soup, page)
             self.get_data()
             sleep(random.randint(2,6))
@@ -36,14 +36,18 @@ class Scraper:
         cleanr = re.compile('<.*?>')
         self.index = soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > header > div.entity-list-meta > strong")
         if not self.index:
-            page = page
-            sleep(3)
-            self.start_scraper(a=page, n=2)
+            if soup.find_all("div",attrs={"class":"captcha-mid"}):
+                sleep(randint(10,20))
+                page = page + 1
+            else:
+                page = page
+            sleep(randint(3,7))
+            self.start_scraper(a=page, n=200)
         self.index = re.sub(cleanr, '', str(self.index[0])) 
         parent = soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > div.EntityList.EntityList--Standard.EntityList--Regular.EntityList--ListItemRegularAd.EntityList--itemCount_{} > ul > li > article > h3 > a".format(self.index))
         if not parent:
             page = page
-            sleep(3)
+            sleep(randint(2-5))
             self.start_scraper(a=page, n=400)
         for link in parent:
             self.list_of_links.append(self.address + link.get('href'))
@@ -75,5 +79,5 @@ class Scraper:
             json.dump(self.dataset, json_file)
 
 scraper = Scraper()
-scraper.start_scraper(1,2)
+scraper.start_scraper(100,200)
 
