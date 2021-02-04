@@ -10,12 +10,20 @@ import re
 import random
 
 
+# https://proxy.webshare.io/proxy/list?page=1&type=port
+
+proxy_host = "proxy.crawlera.com"
+proxy_port = "8010"
+proxy_auth = "f38992c7162348418fe4e243662ddb93:" # Make sure to include ':' at the end
+proxies = {"https": "https://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port),
+      "http": "http://{}@{}:{}/".format(proxy_auth, proxy_host, proxy_port)}
+ 
 class Scraper:
     def __init__(self) -> None:
         self.link: str = "https://www.njuskalo.hr/prodaja-kuca?page={}"
         self.address: str = "https://www.njuskalo.hr"
         self.list_of_links: list = []
-        self.counter: int = 0
+        self.counter: int = 3222
         self.data = {'Lokacija': '0','Cijena':'0','Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
         self.dataset: dict = {}
         self.index: str = ""
@@ -27,22 +35,27 @@ class Scraper:
         content_list = content.split("\n")
         my_file. close()
         proxy = {
-                    "http": "https://{}".format(random.choice(content_list))
+                    "http": "http://{}".format(random.choice(content_list)),
+                    "https": "http://{}".format(random.choice(content_list))
                 }
         return proxy
 
     def start_scraper(self, begin, end):
         for page in range(begin, end):
-            sleep(random.randint(2,6))
+            sleep(random.randint(20,40))
             print("You are currently on page {}".format(page))
-            if self.counter%250 == 0:     
-                self.proxy = self.give_proxy()
-            page_request = requests.get(self.link.format(page), headers = {"User-Agent":UserAgent().random},proxies = self.proxy) 
+            #print(self.proxy)
+            #if self.counter%250 == 0:     
+            #    self.proxy = self.give_proxy()
+            page_request = requests.get(self.link.format(page),headers = {"User-Agent":UserAgent().random},proxies=proxies, verify=False) 
             soup = bs(page_request.content,'html.parser')
             self.get_individual_links(soup, page, end)
             self.get_data()
-            self.list_of_links = [] 
-            sleep(random.randint(10,20))
+            self.list_of_links = []
+            with open('data3.json', 'a+') as json_file: 
+                json.dump(self.dataset, json_file)
+            self.dataset = {}
+            sleep(random.randint(1,2))
 
     def get_individual_links(self, soup, page, n):
         cleanr = re.compile('<.*?>')
@@ -53,6 +66,10 @@ class Scraper:
             if soup.find_all("div",attrs={"class":"captcha-mid"}):
                 print("Captcha discovered!")
                 raise ValueError
+            else:
+                sleep(random.randint(8,10))
+                self.start_scraper(page, n)
+
         if self.index:
             parent = soup.select("#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > div.EntityList.EntityList--Standard.EntityList--Regular.EntityList--ListItemRegularAd.EntityList--itemCount_{} > ul > li > article > h3 > a".format(self.index))
             for link in parent:
@@ -64,29 +81,29 @@ class Scraper:
         return cleaned_string
     
     def get_data(self):
-        with open('data.json', 'a+') as json_file:
-            for link in self.list_of_links:
-                self.data = {'Lokacija': '0', 'Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
-                self.counter += 1
-                page_request = requests.get(link, headers = {"User-Agent":UserAgent().random},proxies = self.proxy)
+        for link in self.list_of_links:
+            sleep(random.randint(15,25))
+            self.data = {'Lokacija': '0', 'Broj soba': '0', 'Stambena površina': '0', 'Površina okućnice': '0', 'Broj parkirnih mjesta': '0', 'Pogled na more': '0'}
+            self.counter += 1
+            page_request = requests.get(link,headers = {"User-Agent":UserAgent().random},proxies=proxies, verify=False)
+            sleep(randint(8,12))
+            soup = bs(page_request.content,'html.parser')
+            try:
+                self.get_price(soup)
+            except IndexError:
+                continue
+            table_data = list(soup.select("#content-main > div.content-primary > div > div.content-main > div.BlockStandard.ClassifiedDetailBasicDetails span"))
+            if not table_data:
                 sleep(randint(1,2))
-                soup = bs(page_request.content,'html.parser')
-                try:
-                    self.get_price(soup)
-                except IndexError:
-                    continue
-                table_data = list(soup.select("#content-main > div.content-primary > div > div.content-main > div.BlockStandard.ClassifiedDetailBasicDetails span"))
-                if not table_data:
-                    sleep(randint(10,15))
-                    self.counter -= 1
-                    continue     
-                self.get_property_data(table_data)
-            json.dump(self.dataset, json_file)
+                self.counter -= 1
+                continue     
+            self.get_property_data(table_data)
+           
+            
 
     def get_price(self, soup):
         price = soup.select("#content-main > div.content-primary > div > div.content-main > div:nth-child(3) > div.ClassifiedDetailSummary.cf > div.ClassifiedDetailSummary-topControls.cf > div.ClassifiedDetailSummary-pricesBlock > dl > dd")                
         price = self.get_clean_string(price).split()[1]
-        print(price)
         self.data['Cijena'] = price
 
     def get_property_data(self, table_data):
@@ -100,6 +117,5 @@ class Scraper:
                 self.dataset[self.counter] = self.data 
 
 scraper = Scraper()
-# for i,y in enumerate(range(1,10), 2):
-scraper.start_scraper(2,4)
+scraper.start_scraper(129,300)
 
