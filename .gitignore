@@ -22,3 +22,4 @@ Engine/__pycache__/Scraper.cpython-38.pyc
 Engine/__pycache__
 .DS_Store
 data.json
+/GUI/migrations/
