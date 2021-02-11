@@ -1,45 +1,65 @@
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
 import numpy as np
-
+from sklearn.model_selection import train_test_split  # data split
+from sklearn.linear_model import LinearRegression  # OLS algorithm
+from sklearn.linear_model import Ridge  # Ridge algorithm
+from sklearn.linear_model import Lasso  # Lasso algorithm
+from sklearn.linear_model import BayesianRidge  # Bayesian algorithm
+from sklearn.linear_model import ElasticNet  # ElasticNet algorithm
+from sklearn.metrics import explained_variance_score as evs  # evaluation metric
+from termcolor import colored as cl
 from pandas_convert import DataConverter
 
+
 converter = DataConverter(data_file='raw_data.json')
-df_croatian = converter.convert_json_to_pandas()
-df = converter.english_translation(df_croatian)
-print(df.describe())
-labels = np.array(df['Price'])
-features = df.drop(['Location', 'Price'], axis=1)
-# Saving feature names for later use
+df = converter.convert_json_to_pandas()
+labels = np.array(df['Cijena'])
+features = df.drop(['Lokacija', 'Cijena'], axis=1)
 feature_list = list(features.columns)
 features = np.array(features)
 
+X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=0)
 
-train_features, test_features, train_labels, test_labels = train_test_split(features, labels,
-                                                                            test_size=0.25, random_state=42)
+# MODELING
 
-# # The baseline predictions are the historical averages
-# baseline_predictions = test_features[:, feature_list.index('average')]
-# # Baseline errors, and display average baseline error
-# baseline_errors = abs(baseline_predictions - test_labels)
-# print('Average baseline error: ', round(np.mean(baseline_errors), 2))
+# 1. OLS
 
-# Instantiate model with 1000 decision trees
-rf = RandomForestRegressor(n_estimators=24, random_state=42)
-# Train the model on training data
-rf.fit(train_features, train_labels)
+ols = LinearRegression()
+ols.fit(X_train, y_train)
+ols_yhat = ols.predict(X_test)
 
-# Use the forest's predict method on the test data
-predictions = rf.predict(test_features)
-# Calculate the absolute errors
-errors = abs(predictions - test_labels)
-# Print out the mean absolute error (mae)
-print('Mean Absolute Error:', round(np.mean(errors), 2), 'kuna.')
+# 2. Ridge
 
-# Calculate mean absolute percentage error (MAPE)
-mape = 100 * (errors / test_labels)
-# Calculate and display accuracy
-accuracy = 100 - np.mean(mape)
-print('Accuracy:', round(accuracy, 2), '%.')
+ridge = Ridge(alpha=0.5)
+ridge.fit(X_train, y_train)
+ridge_yhat = ridge.predict(X_test)
 
+# 3. Lasso
 
+lasso = Lasso(alpha=0.01)
+lasso.fit(X_train, y_train)
+lasso_yhat = lasso.predict(X_test)
+
+# 4. Bayesian
+
+bayesian = BayesianRidge()
+bayesian.fit(X_train, y_train)
+bayesian_yhat = bayesian.predict(X_test)
+
+# 5. ElasticNet
+
+en = ElasticNet(alpha=0.01)
+en.fit(X_train, y_train)
+en_yhat = en.predict(X_test)
+
+print(cl('EXPLAINED VARIANCE SCORE:', attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
+print(cl('Explained Variance Score of OLS model is {}'.format(evs(y_test, ols_yhat)), attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
+print(cl('Explained Variance Score of Ridge model is {}'.format(evs(y_test, ridge_yhat)), attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
+print(cl('Explained Variance Score of Lasso model is {}'.format(evs(y_test, lasso_yhat)), attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
+print(cl('Explained Variance Score of Bayesian model is {}'.format(evs(y_test, bayesian_yhat)), attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
+print(cl('Explained Variance Score of ElasticNet is {}'.format(evs(y_test, en_yhat)), attrs = ['bold']))
+print('-------------------------------------------------------------------------------')
