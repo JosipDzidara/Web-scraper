@@ -18,7 +18,6 @@ feature_list = list(features.columns)
 features = np.array(features)
 
 X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=0)
-
 # MODELING
 
 # 1. OLS
@@ -26,7 +25,6 @@ X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=
 ols = LinearRegression()
 ols.fit(X_train, y_train)
 ols_yhat = ols.predict(X_test)
-
 # 2. Ridge
 
 ridge = Ridge(alpha=0.5)

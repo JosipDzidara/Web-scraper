@@ -1,8 +1,6 @@
 import json
-import random
 import requests
 from bs4 import BeautifulSoup as bs
-import inspect
 from random import randint
 from fake_useragent import UserAgent
 from time import sleep
@@ -42,7 +40,8 @@ class Scraper:
         cleanr = re.compile('<.*?>')
         try:
             self.index = soup.select(
-                "#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > header > div.entity-list-meta > strong")
+                "#form_browse_detailed_search > div > div.content-main > div.block-standard.block-standard--epsilon > "
+                "header > div.entity-list-meta > strong")
             self.index = re.sub(cleanr, '', str(self.index[0]))
         except Exception:
             if soup.find_all("div", attrs={"class": "captcha-mid"}):
@@ -62,8 +61,8 @@ class Scraper:
                 self.list_of_links.append(self.address + link.get('href'))
 
     def get_clean_string(self, element) -> str:
-        cleanr = re.compile('<.*?>')
-        cleaned_string = re.sub(cleanr, '', str(element))
+        cleaner = re.compile('<.*?>')
+        cleaned_string = re.sub(cleaner, '', str(element))
         return cleaned_string
 
     def get_data(self):
@@ -105,8 +104,3 @@ class Scraper:
             if cleantext_1 in self.data.keys():
                 self.data[cleantext_1] = cleantext_2
                 self.dataset[self.counter] = self.data
-
-
-scraper = Scraper()
-scraper.start_scraper(129, 300)
-
