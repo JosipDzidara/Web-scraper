@@ -21,5 +21,6 @@ WebScraper/GUI/migrations/__pycache__/__init__.cpython-39.pyc
 Scraper_engine/__pycache__/Scraper.cpython-38.pyc
 Scraper_engine/__pycache__
 .DS_Store
-data.json
+raw_data.json
 /.idea
+/Model/.raw_data.json.icloud
