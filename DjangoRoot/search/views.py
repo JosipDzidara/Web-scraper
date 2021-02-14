@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from Model.ml_model import Model
+from Model import ml_model as ml
 from .forms import ml_input
 
 
@@ -15,9 +15,8 @@ def contact(request):
             sqr_out = form.cleaned_data['sqr_out']
             sqr_in = form.cleaned_data['sqr_in']
             see_view = form.cleaned_data['see_view']
-            print(county, n_room)
             result = [n_room, sqr_out, sqr_in, see_view, county]
-            ml_model = Model('ols', result)
+            ml_model = ml.MachineLearningModel('ols', result)
             prediction = ml_model.prediction
             return render(request, 'search/result.html', {'result': prediction})
 

@@ -66,8 +66,3 @@ class DataConverter:
                                                                              index=False)
         elif language == "croatian":
             self.convert_json_to_pandas().to_excel("data_{}.xlsx".format(language), index=False)
-
-
-converter = DataConverter('raw_data.json')
-df = converter.convert_json_to_pandas()
-pprint(df.columns[7:])

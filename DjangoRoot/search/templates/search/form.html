@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang='en'>
-    <head>
-        <title>Home page</title>
-    </head>
+{% extends "home/base.html" %}
+{% block content %}
     <body>
         <form method="post">
             {% csrf_token %}
@@ -10,4 +7,4 @@
             <button type="submit">Submit</button>
         </form>
     </body>
-</html>
+{% endblock %}

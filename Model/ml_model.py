@@ -11,7 +11,7 @@ from termcolor import colored as cl
 from pandas_convert import DataConverter
 
 
-class Model:
+class MachineLearningModel:
     def __init__(self, name, user_input):
         self.ml_name = name
         # Example [4, 149, 4881, '0', 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
