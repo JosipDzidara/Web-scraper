@@ -5,5 +5,5 @@ class ml_input(forms.Form):
     n_room = forms.IntegerField(label='Number of rooms')
     sqr_out = forms.IntegerField(label='Outer area')
     sqr_in = forms.IntegerField(label='Inner area')
-    see_view = forms.ChoiceField(choices=[('c1','Da'),('c2','Ne')])
+    see_view = forms.ChoiceField(choices=[(1 ,'Da'),(0 ,'Ne')])
 

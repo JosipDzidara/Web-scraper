@@ -1,4 +1,6 @@
 import json
+from pprint import pprint
+
 import pandas as pd
 
 
@@ -33,6 +35,8 @@ class DataConverter:
         df = pd.concat([df, df2], axis=1)
         return df
 
+
+
     def english_translation(self, df):
         """Creates an english translation of columns in Pandas dataframe.
 
@@ -61,3 +65,8 @@ class DataConverter:
                                                                              index=False)
         elif language == "croatian":
             self.convert_json_to_pandas().to_excel("data_{}.xlsx".format(language), index=False)
+
+
+converter = DataConverter('raw_data.json')
+df = converter.convert_json_to_pandas()
+pprint(df.columns[7:])
