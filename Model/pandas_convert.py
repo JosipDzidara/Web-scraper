@@ -31,6 +31,7 @@ class DataConverter:
         df = df.drop_duplicates()
         df = df[df["Cijena"] > 35000]
         df = df[df["Površina okućnice"] > 0]
+        df = df[df.Lokacija != 'Bosna i Hercegovina']
         df2 = pd.get_dummies(df.Lokacija)
         df = pd.concat([df, df2], axis=1)
         return df

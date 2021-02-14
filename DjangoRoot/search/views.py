@@ -16,9 +16,10 @@ def contact(request):
             sqr_in = form.cleaned_data['sqr_in']
             see_view = form.cleaned_data['see_view']
             print(county, n_room)
-            result = [county, n_room, sqr_out, sqr_in, see_view]
-
-            return render(request, 'search/result.html', {'result': result})
+            result = [n_room, sqr_out, sqr_in, see_view, county]
+            ml_model = Model('ols', result)
+            prediction = ml_model.prediction
+            return render(request, 'search/result.html', {'result': prediction})
 
     form = ml_input()
     return render(request, 'search/form.html', {'form': form})
