@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>Result page</title>
+    </head>
+    <body>
+        Following inputs for machine learning model have been used:
+            {% for element in result %}
+                <ul>{{ element }}</ul>
+            {% endfor %}
+    </body>
+</html>

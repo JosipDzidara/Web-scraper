@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +11,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 </head>
-<nav>
-    <div class="container nav-wrapper">
-        <a href="/" class="brand-logo">Housing in Croatia</a>
-        <ul id="nav-mobile" class="right">
-            <li><a href="/">Calculate</a> </li>
-        </ul>
-    </div>
-</nav>
+
+<body>
+    <nav>
+        <div class="container nav-wrapper">
+            <a href="/" class="brand-logo">Housing in Croatia</a>
+            <ul id="nav-mobile" class="right">
+                <li><a href="/calculate/">Calculate</a> </li>
+                <li><a href="/visualize/">Visualizations</a> </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock  %}
+
+    {% block js %}
+    {% endblock %}
+</body>
+
 <h1>Predict housing prices in Croatia!</h1>
 </html>
