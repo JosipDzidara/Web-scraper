@@ -1,3 +1,4 @@
+import os
 from pprint import pprint
 
 import numpy as np
@@ -7,6 +8,8 @@ from sklearn.linear_model import Ridge  # Ridge algorithm
 from sklearn.linear_model import Lasso  # Lasso algorithm
 from sklearn.linear_model import BayesianRidge  # Bayesian algorithm
 from sklearn.linear_model import ElasticNet  # ElasticNet algorithm
+
+from DjangoRoot.GUI.settings import SOURCE_DIR
 from ML_Model.pandas_convert import DataConverter
 
 
@@ -17,13 +20,13 @@ class MachineLearningModel:
         self.df = pd.DataFrame([])
         self.features = np.array([])
         self.labels = np.array([])
-        self.prediction: int = 0
 
     def start_ml_analysis(self):
         self.serialize_user_input()
         self.convert_data_to_pandas()
         self.create_labels_and_features()
-        self.ml_model()
+        prediction = self.ml_model()
+        return prediction
 
     def serialize_user_input(self):
         counties_list = ['Bjelovarsko-bilogorska', 'Brodsko-posavska', 'Dubrovačko-neretvanska',
@@ -45,16 +48,17 @@ class MachineLearningModel:
         if self.ml_name == "OLS":
             prediction = self.ols_model()
         elif self.ml_name == "Ridge":
-            self.ridge_model()
+            prediction = self.ridge_model()
         elif self.ml_name == "Lasso":
-            self.lasso_model()
+            prediction = self.lasso_model()
         elif self.ml_name == "Bayesian":
-            self.bayesian_model()
+            prediction = self.bayesian_model()
         else:
-            self.elastic_net()
+            prediction = self.elastic_net()
+        return prediction
 
     def convert_data_to_pandas(self):
-        converter = DataConverter(data_file=r'C:\Users\jddzi\Desktop\Web-scraper\Source\ML_Model\raw_data.json')
+        converter = DataConverter(data_file=os.path.join(SOURCE_DIR, 'ML_Model/raw_data.json'))
         self.df = converter.convert_json_to_pandas()
 
     def create_labels_and_features(self):
@@ -74,25 +78,29 @@ class MachineLearningModel:
     def ridge_model(self):
         ridge = Ridge(alpha=0.5)
         ridge.fit(self.features, self.labels)
-        self.prediction = round(ridge.predict(self.user_input)[0])
+        prediction = round(ridge.predict(self.user_input)[0])
+        return prediction
 
     # 3. Lasso
     def lasso_model(self):
         lasso = Lasso(alpha=0.01)
         lasso.fit(self.features, self.labels)
-        self.prediction = round(lasso.predict(self.user_input)[0])
+        prediction = round(lasso.predict(self.user_input)[0])
+        return prediction
 
     # 4. Bayesian
     def bayesian_model(self):
         bayesian = BayesianRidge()
         bayesian.fit(self.features, self.labels)
-        self.prediction = round(bayesian.predict(self.user_input)[0])
+        prediction = round(bayesian.predict(self.user_input)[0])
+        return prediction
 
     # 5. ElasticNet
     def elastic_net(self):
         en = ElasticNet(alpha=0.01)
         en.fit(self.features, self.labels)
-        self.prediction = round(en.predict(self.user_input)[0])
+        prediction = round(en.predict(self.user_input)[0])
+        return prediction
 
 
 

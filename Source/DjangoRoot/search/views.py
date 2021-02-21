@@ -15,8 +15,8 @@ def calculate_result(request):
             see_view = form.cleaned_data['see_view']
             result = [n_room, sqr_out, sqr_in, int(see_view), county]
             model = MachineLearningModel('OLS', result)
-            model.start_ml_analysis()
-            prediction = result.append(model.prediction)
+            prediction = model.start_ml_analysis()
+            result.append(prediction)
             return render(request, 'search/result.html', {'result': result})
 
     form = MachineLearningForm()
