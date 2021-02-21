@@ -31,7 +31,7 @@ class Scraper:
             self.get_individual_links(soup, page, end)
             self.get_data()
             self.list_of_links = []
-            with open('../Model/raw_data.json', 'a+') as json_file:
+            with open('../ML_Model/raw_data.json', 'a+') as json_file:
                 json.dump(self.dataset, json_file)
             self.dataset = {}
             sleep(random.randint(1, 2))
