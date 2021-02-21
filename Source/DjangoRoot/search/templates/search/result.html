@@ -1,0 +1,8 @@
+{% extends "search/base.html" %}
+{% block content %}
+
+        Following inputs for machine learning model have been used:
+            {% for element in result %}
+                <ul>{{ element }}</ul>
+            {% endfor %}
+{% endblock %}
