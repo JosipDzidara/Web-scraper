@@ -37,13 +37,13 @@ class MachineLearningModel:
         dummies = [0]*len(counties_list)
         index = counties_list.index(user_county)
         dummies[index] = 1
-        complete_list = self.user_input[0:4].extend(dummies)
-        self.user_input = np.array(complete_list).reshape(1, -1)
-        pprint(self.user_input)
+        self.user_input.remove(self.user_input[-1])
+        self.user_input.extend(dummies)
+        self.user_input = np.array(self.user_input).reshape(1, -1)
 
     def ml_model(self):
         if self.ml_name == "OLS":
-            self.ols_model()
+            prediction = self.ols_model()
         elif self.ml_name == "Ridge":
             self.ridge_model()
         elif self.ml_name == "Lasso":
@@ -54,20 +54,21 @@ class MachineLearningModel:
             self.elastic_net()
 
     def convert_data_to_pandas(self):
-        converter = DataConverter(data_file=r'C:\Users\jddzi\Desktop\Web-scraper\Model\raw_data.json')
+        converter = DataConverter(data_file=r'C:\Users\jddzi\Desktop\Web-scraper\Source\ML_Model\raw_data.json')
         self.df = converter.convert_json_to_pandas()
 
     def create_labels_and_features(self):
         self.labels = np.array(self.df['Cijena'])
         features = self.df.drop(['Lokacija', 'Cijena'], axis=1)
-        feature_list = list(features.columns)
         self.features = np.array(features)
 
     # 1. OLS
     def ols_model(self):
         ols = LinearRegression()
         ols.fit(self.features, self.labels)
-        self.prediction = round(ols.predict(self.user_input)[0])
+        prediction = round(ols.predict(self.user_input)[0])
+        return prediction
+
 
     # 2. Ridge
     def ridge_model(self):
@@ -92,6 +93,7 @@ class MachineLearningModel:
         en = ElasticNet(alpha=0.01)
         en.fit(self.features, self.labels)
         self.prediction = round(en.predict(self.user_input)[0])
+
 
 
 

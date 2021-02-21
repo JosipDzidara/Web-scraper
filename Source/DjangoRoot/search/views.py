@@ -1,23 +1,23 @@
 
 from django.shortcuts import render
 from ML_Model.ml_model import MachineLearningModel
-from .forms import ml_input
+from .forms import MachineLearningForm
 
 
-# Create your views here.
-def contact(request):
+def calculate_result(request):
     if request.method == "POST":
-        form = ml_input(request.POST)
+        form = MachineLearningForm(request.POST)
         if form.is_valid():
             county = form.cleaned_data['county']
             n_room = form.cleaned_data['n_room']
             sqr_out = form.cleaned_data['sqr_out']
             sqr_in = form.cleaned_data['sqr_in']
             see_view = form.cleaned_data['see_view']
-            result = [n_room, sqr_out, sqr_in, see_view, county]
-            ml_model = MachineLearningModel('ols', result)
-            prediction = ml_model.prediction
-            return render(request, 'search/result.html', {'result': prediction})
+            result = [n_room, sqr_out, sqr_in, int(see_view), county]
+            model = MachineLearningModel('OLS', result)
+            model.start_ml_analysis()
+            prediction = result.append(model.prediction)
+            return render(request, 'search/result.html', {'result': result})
 
-    form = ml_input()
+    form = MachineLearningForm()
     return render(request, 'search/form.html', {'form': form})

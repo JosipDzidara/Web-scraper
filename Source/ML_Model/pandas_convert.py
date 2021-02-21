@@ -18,7 +18,7 @@ class DataConverter:
             data = json.load(obj)
 
         df = pd.DataFrame(data.values())
-        df.drop('Broj parkirnih mjesta', axis=1)
+        df = df.drop('Broj parkirnih mjesta', axis=1)
         df[["Broj soba"]] = df[["Broj soba"]].apply(pd.to_numeric)
         df.Cijena = df.Cijena.map(lambda element: int(element.replace(".", "")))
         df["Stambena površina"] = df["Stambena površina"].map(
