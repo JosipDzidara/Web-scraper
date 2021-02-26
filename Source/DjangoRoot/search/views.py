@@ -20,4 +20,4 @@ def calculate_result(request):
             return render(request, 'search/result.html', {'result': result})
 
     form = MachineLearningForm()
-    return render(request, 'search/form.html', {'form': form})
+    return render(request, 'search/index.html', {'form': form})

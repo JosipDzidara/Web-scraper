@@ -1,9 +1,8 @@
 from django import forms
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Field
+from crispy_forms.layout import Layout, Submit, Field, ButtonHolder, Fieldset
 from crispy_forms.bootstrap import FormActions
-
 
 counties_list = ['Bjelovarsko-bilogorska', 'Brodsko-posavska', 'Dubrovačko-neretvanska',
                  'Grad Zagreb', 'Istarska', 'Karlovačka', 'Koprivničko-križevačka',
@@ -28,9 +27,14 @@ class MachineLearningForm(forms.Form):
     helper = FormHelper()
     helper.form_class = 'form-horizontal'
     helper.layout = Layout(
-        'county',
-        Field('n_room', style="background: #FAFAFA; padding: 10px;"),
-        Field('sqr_out', style="background: #FAFAFA; padding: 10px;"),
-        Field('sqr_in', style="background: #FAFAFA; padding: 10px;"),
-        'sea_view'
+        Fieldset(
+            'county',
+            Field('n_room', style="background: #FAFAFA; padding: 10px;"),
+            Field('sqr_out', style="background: #FAFAFA; padding: 10px;"),
+            Field('sqr_in', style="background: #FAFAFA; padding: 10px;"),
+            'sea_view'
+        ),
+        ButtonHolder(
+            Submit('submit', 'Submit', css_class='button white')
+        )
     )
