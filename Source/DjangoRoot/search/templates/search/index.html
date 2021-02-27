@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Stylish Portfolio - Start Bootstrap Template</title>
+  <title>Housing Prices in Croatia</title>
 
   <!-- Bootstrap Core CSS -->
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -38,19 +38,16 @@
         <a class="js-scroll-trigger" href="#page-top">Start Bootstrap</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#page-top">Home</a>
+        <a class="js-scroll-trigger" href="#page-top">About the project</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#about">About</a>
+        <a class="js-scroll-trigger" href="#input">Calculate the price of your house</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#services">Services</a>
+        <a class="js-scroll-trigger" href="#portfolio">Visualization</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
-      </li>
-      <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#contact">Contact</a>
+        <a class="js-scroll-trigger" href="#contact">About authors</a>
       </li>
     </ul>
   </nav>
@@ -75,21 +72,21 @@
           <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
           <p class="lead mb-5">This theme features a flexible, UX friendly sidebar menu and stock photos from our friends at
             <a href="https://unsplash.com/">Unsplash</a>!</p>
-          <a class="btn btn-dark btn-xl js-scroll-trigger" href="#services">What We Offer</a>
+          <a class="btn btn-dark btn-xl js-scroll-trigger" href="#input">What We Offer</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Services -->
-  <section class="content-section bg-primary text-white text-center" id="services">
+  <section class="content-section bg-primary text-white text-center" id="input">
     <div class="container">
       <div class="content-section-heading">
         <h2 class="text-secondary mb-0">User Input</h2>
       </div><br>
       <div class="form">
              <form action="" method="POST">
-                 {% crispy form %}
+                 {{ form|crispy }}
                  {% csrf_token %}
              </form>
                     <br>
