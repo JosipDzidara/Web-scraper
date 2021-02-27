@@ -18,12 +18,9 @@ for county in counties_list:
 
 class MachineLearningForm(forms.Form):
     county = forms.ChoiceField(choices=county_choices, widget=forms.Select)
-    n_room = forms.IntegerField(label='Number of rooms', validators=[MinValueValidator(1, message='Minimum number of '
-                                                                                                  'rooms is 1.')])
-    sqr_out = forms.IntegerField(label='Outer area', validators=[MinValueValidator(1, message='Minimum size of '
-                                                                                                  'outer area is 1.')])
-    sqr_in = forms.IntegerField(label='Inner area', validators=[MinValueValidator(1, message='Minimum size of '
-                                                                                                  'iner area is 1.')])
+    n_room = forms.IntegerField(label='Number of rooms', min_value=1, widget=forms.TextInput(attrs={'class':'inputClass'}))
+    sqr_out = forms.IntegerField(label='Outer area', min_value=1)
+    sqr_in = forms.IntegerField(label='Inner area', min_value=1)
     sea_view = forms.ChoiceField(choices=((1, 'Yes'), (0, 'No')), widget=forms.RadioSelect)
 
     helper = FormHelper()

@@ -12,8 +12,8 @@ def calculate_result(request):
             n_room = form.cleaned_data['n_room']
             sqr_out = form.cleaned_data['sqr_out']
             sqr_in = form.cleaned_data['sqr_in']
-            see_view = form.cleaned_data['see_view']
-            result = [n_room, sqr_out, sqr_in, int(see_view), county]
+            sea_view = form.cleaned_data['sea_view']
+            result = [n_room, sqr_out, sqr_in, int(sea_view), county]
             model = MachineLearningModel('OLS', result)
             prediction = model.start_ml_analysis()
             result.append(prediction)
