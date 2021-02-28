@@ -1,6 +1,5 @@
 {% load static %}
 {% load crispy_forms_tags %}
-{% load widget_tweaks %}
 <!DOCTYPE html>
 
 <html lang="en">
@@ -105,7 +104,12 @@
                     {% endif %}
                  <input type="submit" value="Submit" class='btn btn-primary '>
              </form>
-                    <br>
+          <br>
+                {% if result %}
+                    <div class="content-section-heading">
+                        <h2 id="Result">Predicted price: {{result}} kn</h2>
+                    </div>
+                {% endif %}
       </div>
     </div>
   </section>
@@ -225,6 +229,7 @@
 
   <!-- Custom scripts for this template -->
   <script src="../../static/js/stylish-portfolio.min.js"></script>
+
 
 </body>
 

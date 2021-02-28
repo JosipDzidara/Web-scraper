@@ -1,5 +1,5 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ML_Model.ml_model import MachineLearningModel
 from .forms import MachineLearningForm
 
@@ -18,7 +18,7 @@ def calculate_result(request):
             model = MachineLearningModel(model_name, result)
             prediction = model.start_ml_analysis()
             result.append(prediction)
-            return render(request, 'search/result.html', {'result': result})
+            return render(request, 'search/index.html', {'result': prediction,'form':form})
 
     form = MachineLearningForm()
     return render(request, 'search/index.html', {'form': form})
