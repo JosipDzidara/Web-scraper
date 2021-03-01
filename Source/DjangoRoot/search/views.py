@@ -17,8 +17,7 @@ def calculate_result(request):
             result = [n_room, sqr_out, sqr_in, int(sea_view), county]
             model = MachineLearningModel(model_name, result)
             prediction = model.start_ml_analysis()
-            result.append(prediction)
-            return render(request, 'search/index.html', {'result': prediction,'form':form})
+            return render(request, 'search/index.html', {'result': prediction, 'form': form})
 
     form = MachineLearningForm()
     return render(request, 'search/index.html', {'form': form})
