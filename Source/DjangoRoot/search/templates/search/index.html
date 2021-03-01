@@ -23,6 +23,13 @@
 
   <!-- Custom CSS -->
   <link href="{% static 'css/stylish-portfolio.min.css' %}" rel="stylesheet">
+  <!-- Bokeh Plots -->
+  <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.3.0.min.js" integrity="sha384-HjagQp6T0/7bxYTAXbLotF1MLAGWmhkY5siA1Gc/pcEgvgRPtMsRn0gQtMwGKiw1" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+        Bokeh.set_log_level("info");
+  </script>
+  <script src=”http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.4.min.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -37,13 +44,13 @@
         <a class="js-scroll-trigger" href="#page-top">Home</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#page-top">About the project</a>
+        <a class="js-scroll-trigger" href="#about">About the project</a>
       </li>
       <li class="sidebar-nav-item">
         <a class="js-scroll-trigger" href="#input">Calculate the price of your house</a>
       </li>
       <li class="sidebar-nav-item">
-        <a class="js-scroll-trigger" href="#portfolio">Visualizations</a>
+        <a class="js-scroll-trigger" href="#visualizations">Visualizations</a>
       </li>
     </ul>
   </nav>
@@ -116,58 +123,10 @@
   </section>
 
   <!-- Portfolio -->
-  <section class="content-section" id="portfolio">
-    <div class="container">
-      <div class="content-section-heading text-center">
-        <h3 class="text-secondary mb-0">Portfolio</h3>
-        <h2 class="mb-5">Recent Projects</h2>
-      </div>
-      <div class="row no-gutters">
-        <div class="col-lg-6">
-          <a class="portfolio-item" href="#!">
-            <div class="caption">
-              <div class="caption-content">
-                <div class="h2">Stationary</div>
-                <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
-              </div>
-            </div>
-            <img class="img-fluid" src="{% static 'img/portfolio-1.jpg' %}" alt="">
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a class="portfolio-item" href="#!">
-            <div class="caption">
-              <div class="caption-content">
-                <div class="h2">Ice Cream</div>
-                <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
-              </div>
-            </div>
-            <img class="img-fluid" src="../../static/img/portfolio-2.jpg" alt="">
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a class="portfolio-item" href="#!">
-            <div class="caption">
-              <div class="caption-content">
-                <div class="h2">Strawberries</div>
-                <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
-              </div>
-            </div>
-            <img class="img-fluid" src="../../static/img/portfolio-3.jpg" alt="">
-          </a>
-        </div>
-        <div class="col-lg-6">
-          <a class="portfolio-item" href="#!">
-            <div class="caption">
-              <div class="caption-content">
-                <div class="h2">Workspace</div>
-                <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
-              </div>
-            </div>
-            <img class="img-fluid" src="../../static/img/portfolio-4.jpg" alt="">
-          </a>
-        </div>
-      </div>
+  <section class="content-section" id="visualizations">
+  <div class="container">
+      {% block content %}
+      {% endblock %}
     </div>
   </section>
 
@@ -230,7 +189,6 @@
 
   <!-- Custom scripts for this template -->
   <script src="../../static/js/stylish-portfolio.min.js"></script>
-
 
 </body>
 
