@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 import sys
 
-from locate_gui import get_gui_path
+from ..locate_gui import get_gui_path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 home = os.path.expanduser("~")
