@@ -31,7 +31,8 @@ def plot_number_of_rooms_vs_price():
 def heat_map():
     df1 = df_english.iloc[:, 0:5]
     sb.heatmap(df1.corr(), annot=True, cmap='magma')
-    plt.savefig("../DjangoRoot/search/templates/search/blalba.svg", dpi=300, transparent=True)
+    plt.tight_layout()
+    plt.savefig("../DjangoRoot/search/templates/search/heatmap.svg", dpi=300, transparent=True)
 
 
 def price_histogram():
@@ -69,4 +70,11 @@ def save_fig(figure, name):
         f.write(html)
 
 
-heat_map()
+def run_plotting():
+    plot_number_of_rooms_vs_price()
+    heat_map()
+    price_histogram()
+
+
+run_plotting()
+
