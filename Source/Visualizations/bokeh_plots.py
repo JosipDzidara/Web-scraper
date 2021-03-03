@@ -76,5 +76,6 @@ def run_plotting():
     price_histogram()
 
 
-run_plotting()
 
+
+plot_number_of_rooms_vs_price()

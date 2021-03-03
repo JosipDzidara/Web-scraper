@@ -1,7 +1,6 @@
-{#{% include 'search/number_of_rooms_vs_price.html' %}#}
-{#{% include 'search/price_histogram.html' %}#}
 {% load static %}
 {% load crispy_forms_tags %}
+
 
 <!DOCTYPE html>
 
@@ -129,12 +128,12 @@
   <!-- Portfolio -->
   <section class="content-section" id="visualizations">
     <div class="container">
-{#      {% block price_histogram %}#}
-{#      {% endblock price_histogram %}#}
+        {% include "search/number_of_rooms_vs_price.html" %}
+        {% block rooms_vs_price %}{% endblock %}
     </div>
     <div class="container">
-{#      {% block rooms_vs_price %}#}
-{#      {% endblock rooms_vs_price %}#}
+        {% include "search/price_histogram.html" %}
+        {% block price_histogram %}{% endblock %}
     </div>
   </section>
 
