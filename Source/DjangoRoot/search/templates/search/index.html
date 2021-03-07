@@ -127,13 +127,9 @@
 
   <!-- Portfolio -->
   <section class="content-section" id="visualizations">
-    <div class="container">
-        {% include "search/number_of_rooms_vs_price.html" %}
-        {% block rooms_vs_price %}{% endblock %}
-    </div>
-    <div class="container">
-        {% include "search/price_histogram.html" %}
-        {% block price_histogram %}{% endblock %}
+    <div id="container">
+        {% include "search/visualization.html" %}
+        {% block visualize %}{% endblock %}
     </div>
   </section>
 

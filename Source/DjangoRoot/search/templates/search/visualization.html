@@ -1,0 +1,26 @@
+{% load static %}
+{% block visualize %}
+<link rel="stylesheet" href="{% static "css/visualization.css" %}">
+<h1 id="describe_visualization">In what follows, you can see different visualizations used for ML.</h1>
+<div id="main-block">
+    <div class="slider">
+        <div class="images">
+            <input type="radio" name="slide" id="img1" checked>
+            <input type="radio" name="slide" id="img2">
+            <input type="radio" name="slide" id="img3">
+            <input type="radio" name="slide" id="img4">
+
+            <img src="{% static "img/heat_map.jpg" %}" class="m1" alt="img1">
+            <img src="{% static "img/heat_map.jpg" %}" class="m2" alt="img2">
+            <img src="{% static "img/heat_map.jpg" %}" class="m3" alt="img3">
+            <img src="{% static "img/heat_map.jpg" %}" class="m4" alt="img4">
+        </div>
+        <div class="dots">
+            <label for="img1"></label>
+            <label for="img2"></label>
+            <label for="img3"></label>
+            <label for="img4"></label>
+        </div>
+    </div>
+</div>
+{% endblock %}
