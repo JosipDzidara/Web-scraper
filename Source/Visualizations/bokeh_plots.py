@@ -1,4 +1,3 @@
-import os
 import numpy as np
 import pandas as pd
 from bokeh.models import ColumnDataSource, HoverTool, NumeralTickFormatter
@@ -40,7 +39,7 @@ def heat_map():
     sb.heatmap(df1.corr(), annot=True, cmap='magma', ax=ax)
     ax.set_title("Heatmap of dataset on housing prices in Croatia")
     plt.tight_layout()
-    plt.savefig("../DjangoRoot/search/templates/search/heatmap.png", dpi=100, transparent=True)
+    plt.savefig("../DjangoRoot/search/templates/search/heatmap.png", dpi=300, transparent=True)
 
 
 def price_histogram():
@@ -83,5 +82,3 @@ def run_plotting():
     plot_number_of_area_indoor_vs_price()
     heat_map()
     price_histogram()
-
-heat_map()
