@@ -94,7 +94,7 @@
       <div class="content-section-heading">
         <h2 class="text-secondary mb-0">User Input</h2>
       </div><br>
-      <div class="form">
+        <div class="form">
              <form action="" method="POST">
                  {{ form|crispy }}
                  {% csrf_token %}
@@ -112,7 +112,7 @@
                             </div>
                         {% endfor %}
                     {% endif %}
-                 <input type="submit" value="Submit" class='btn btn-primary '>
+                 <input type="submit" value="Submit" class='btn btn-primary' id="submit_form">
              </form>
           <br>
                 {% if result %}
@@ -125,7 +125,7 @@
     </div>
   </section>
 
-  <!-- Portfolio -->
+  <!-- Visualizations -->
   <section class="content-section" id="visualizations">
     <div id="container">
         {% include "search/visualization.html" %}

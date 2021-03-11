@@ -373,7 +373,7 @@ div.form
 {
     display: block;
     text-align: center;
-  width: 50%;
+    width: 100%;
 }
 form
 {
@@ -385,5 +385,9 @@ form
 
 #Result{
   color: white;
+}
+
+#submit_form{
+  margin-left: 67px;
 }
 
