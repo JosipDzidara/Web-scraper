@@ -20,11 +20,12 @@ for county in counties_list:
 
 
 class MachineLearningForm(forms.Form):
-    model = forms.ChoiceField(choices=(('OLS', ml_choices[0]), ('Ridge', ml_choices[1]), ('Lasso', ml_choices[2]), ('Bayesian', ml_choices[-1])), widget=forms.Select)
+    model = forms.ChoiceField(choices=(('OLS', ml_choices[0]), ('Ridge', ml_choices[1]), ('Lasso', ml_choices[2]),
+                                       ('Bayesian', ml_choices[-1])), widget=forms.Select)
     county = forms.ChoiceField(choices=county_choices, widget=forms.Select)
     n_room = forms.IntegerField(label='Number of rooms', min_value=1)
-    sqr_out = forms.IntegerField(label='Outer area', min_value=1)
-    sqr_in = forms.IntegerField(label='Inner area', min_value=1)
+    sqr_out = forms.IntegerField(label='Backyard size', min_value=15)
+    sqr_in = forms.IntegerField(label='Home size', min_value=15)
     sea_view = forms.ChoiceField(choices=((1, 'Yes'), (0, 'No')), widget=forms.RadioSelect)
 
     helper = FormHelper()
