@@ -92,7 +92,7 @@
   <!-- User input and calculation -->
   <section class="content-section bg-primary text-white text-center" id="input">
     <div class="container">
-      <div class="content-section-heading">
+      <div class="content-section-heading" id="user_input_heading">
         <h2 class="text-secondary mb-0">User Input</h2>
       </div><br>
         <div class="form">
@@ -116,8 +116,9 @@
                  <input type="submit" value="Submit" class='btn btn-primary' id="submit_form">
              </form>
           <br>
+            <br>
                 {% if result %}
-                    <script>document.getElementById('input').scrollIntoView(true);</script>
+                    <script>document.getElementById('user_input_heading').scrollIntoView(true);</script>
                     <div class="content-section-heading">
                         <h2 id="Result">Predicted price: {{result}} HRK</h2>
                     </div>
