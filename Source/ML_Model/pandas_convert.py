@@ -28,15 +28,16 @@ class DataConverter:
         df[["Stambena površina", "Površina okućnice"]] = df[["Stambena površina", "Površina okućnice"]].apply(
             pd.to_numeric)
         df["Pogled na more"] = pd.to_numeric(df["Pogled na more"].replace("Da", "1"))
-        df = df.drop_duplicates()
-        df = df[df["Cijena"] > 35000]
-        df = df[df["Površina okućnice"] > 0]
-        df = df[df.Lokacija != 'Bosna i Hercegovina']
-        df2 = pd.get_dummies(df.Lokacija)
-        df = pd.concat([df, df2], axis=1)
+        df = df.drop_duplicates()  # Remove duplicates
+        df = df[df["Cijena"] > 35000]  # Remove items that are priced less than 35000 HRK
+        df = df[
+            df["Površina okućnice"] > 0]
+        df = df[df["Stambena površina"] < 2000]
+        # Remove items that have outdoor area = 0 because this data is deemed invalid
+        df = df[df.Lokacija != 'Bosna i Hercegovina']  # Remove real estate located in Bosnia and Herzegovina
+        df2 = pd.get_dummies(df.Lokacija)  # Create dummies for every county in Croatia
+        df = pd.concat([df, df2], axis=1)  # Append dummies to the new dataset
         return df
-
-
 
     def english_translation(self, df):
         """Creates an english translation of columns in Pandas dataframe.
