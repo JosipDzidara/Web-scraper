@@ -23,8 +23,8 @@ accept user's input as a form, forward user's data to the chosen prediction mode
    ```shell
    pip3 install -r requirements.txt
    
-5. Run ```cd Source/DjangoRoot && python3 manage.py runserver```
-6. Navigate to `localhost:8000` and browse around. Try to input the specifications of the house you live in and check
+5. Run ```cd Source/DjangoRoot && python3 manage.py runserver --insecure``` to start a localhost server on your machine. Please note that the `--insecure` flag is a Django option to force serving of static files with the staticfiles app even if the DEBUG setting is False. 
+7. Navigate to `localhost:8000` and browse around. Try to input the specifications of the house you live in and check
 how much would you pay for the same house in Croatia.
    
 ### Authors: 
