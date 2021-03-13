@@ -117,10 +117,15 @@
              </form>
           <br>
             <br>
-                {% if result %}
+                {% if result > 0 %}
                     <script>document.getElementById('user_input_heading').scrollIntoView(true);</script>
                     <div class="content-section-heading">
                         <h2 id="Result">Predicted price: {{result}} HRK</h2>
+                    </div>
+                {% elif result < 0 %}
+                    <script>document.getElementById('user_input_heading').scrollIntoView(true);</script>
+                    <div class="content-section-heading">
+                        <h2 id="Result">For above inputs result is not valid</h2>
                     </div>
                 {% endif %}
       </div>
