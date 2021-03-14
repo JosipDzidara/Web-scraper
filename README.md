@@ -5,6 +5,10 @@ Data which is scraped is stored in `./Source/ML_Model/raw_data.json`. Raw data i
 object and consumed by the machine learning models. The goal of this project is to create a web application which would 
 accept user's input as a form, forward user's data to the chosen prediction model and return predicted price.**
 
+
+[**Demonstration video**](https://vimeo.com/523376525/ef02803cea)
+
+
 ### The project includes the following components:
 
 #### 1. Web scraper (`./Source/Scraper_engine/`) 
